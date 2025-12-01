@@ -1,4 +1,4 @@
-#Next Blog App
+Next Blog App
 
 A full-featured Next.js Blog Platform with a modern tech stack and robust backend powered by Node.js, MongoDB, and Mongoose. This project is designed to deliver a seamless blogging experience with a complete set of functionalities for both users and admins.
 
