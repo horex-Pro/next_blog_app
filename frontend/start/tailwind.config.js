@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 import { fontFamily } from "tailwindcss/defaultTheme";
+import tailwindFormPlugin from "@tailwindcss/forms";
 
 function withOpacity(variableName) {
   return ({ opacityValue }) => {
@@ -11,8 +12,9 @@ function withOpacity(variableName) {
   };
 }
 
-module.exports = {
+export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["class", '[class="dark-mode"]'],
   theme: {
     extend: {
       colors: {
@@ -44,14 +46,19 @@ module.exports = {
         warning: withOpacity("--color-warning"),
         error: withOpacity("--color-error"),
       },
-      fontFamily: {
-        sans: ["var(--font-vazir)", ...fontFamily.sans],
-      },
       container: {
         center: true,
         padding: "1rem",
       },
+      fontFamily: {
+        sans: ["var(--font-vazir)", ...fontFamily.sans],
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    tailwindFormPlugin({
+      strategy: "class",
+    }),
+  ],
 };
