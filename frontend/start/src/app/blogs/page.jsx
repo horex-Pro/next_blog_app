@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { Suspense } from "react";
+import PostList from "./_components/PostList";
+import Spinner from "@/components/ui/Spinner";
 
-function BlogPage() {
+async function BlogPage() {
+  
+
   return (
-    <div>BlogPage</div>
-  )
+    <div>
+      <Suspense fallback={<Spinner/>}>
+        <PostList />
+      </Suspense>
+    </div>
+  );
 }
 
-export default BlogPage
+export default BlogPage;
