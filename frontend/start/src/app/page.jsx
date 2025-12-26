@@ -1,7 +1,7 @@
+import "@/styles/globals.css";
 
-
-export default function Home() {
+export default function Page() {
   return(
-    <h1>test</h1>
+    <h1 className="text-white">سلام </h1>
   )
 }
