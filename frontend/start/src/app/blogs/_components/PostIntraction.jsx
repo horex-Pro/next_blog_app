@@ -1,0 +1,28 @@
+import ButtonIcon from "@/components/ui/ButtonIcon";
+import { toPersianDigits } from "@/utils/numberFormatter";
+import {
+  BookmarkIcon,
+  ChatBubbleLeftEllipsisIcon,
+  HeartIcon,
+} from "@heroicons/react/24/outline";
+import React from "react";
+
+function PostIntraction({ post }) {
+  return (
+    <div className="flex items-center gap-x-4 ">
+      <ButtonIcon variant="secondary">
+        <ChatBubbleLeftEllipsisIcon />
+        <span>{toPersianDigits(post.commentsCount)}</span>
+      </ButtonIcon>
+      <ButtonIcon variant="red">
+        <HeartIcon />
+        <span>{toPersianDigits(post.likesCount)}</span>
+      </ButtonIcon>
+      <ButtonIcon variant="primary">
+        <BookmarkIcon />
+      </ButtonIcon>
+    </div>
+  );
+}
+
+export default PostIntraction;

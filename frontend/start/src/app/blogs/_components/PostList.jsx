@@ -4,6 +4,7 @@ import CoverImage from "./CoverImage";
 import Link from "next/link";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import Author from "./Author";
+import PostIntraction from "./PostIntraction";
 
 async function PostList() {
   const response = await fetch(
@@ -33,7 +34,7 @@ async function PostList() {
                 {post.title}
               </h2>
             </Link>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between mb-5">
               <Author {...post.author} />
               <div className="flex items-center text-[10px] text-secondary-500">
                 <ClockIcon className="w-4 h-4 stroke-secondary-500 ml-1" />
@@ -41,6 +42,7 @@ async function PostList() {
                 <span className="ml-1 leading-3">{post.readingTime}</span>
               </div>
             </div>
+            <PostIntraction post={post} />
           </div>
         </div>
       ))}
