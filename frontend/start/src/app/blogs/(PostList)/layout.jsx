@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
-import PostList from "./_components/PostList";
-import CategoryList from "./_components/CategoryList";
+import PostList from "../_components/PostList";
+import CategoryList from "../_components/CategoryList";
 import Spinner from "@/components/ui/Spinner";
 
 export const metadata = {
