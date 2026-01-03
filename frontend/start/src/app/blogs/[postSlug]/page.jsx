@@ -17,9 +17,7 @@ async function SinglePost({ params }) {
       </h1>
 
       <p className="mb-4">{post.briefText}</p>
-      <p className="mb-8">{post.text}</p>
-
-      {/* IMAGE */}
+      <p className="mb-8">{post.text}</p> 
       <div className="relative aspect-video overflow-hidden rounded-lg mb-10">
         <Image
           src={post.coverImageUrl}
