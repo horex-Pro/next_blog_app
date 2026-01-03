@@ -5,16 +5,10 @@ import Link from "next/link";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import Author from "./Author";
 import PostIntraction from "./PostIntraction";
+import { getPosts } from "@/services/postServices";
 
 async function PostList() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/post/list`,
-    { cache: "no-store" }
-  );
-
-  const {
-    data: { posts },
-  } = await response.json();
+  const posts = await getPosts();
 
   if (!posts || posts.length === 0) return null;
 

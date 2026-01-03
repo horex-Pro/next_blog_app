@@ -1,7 +1,17 @@
-import { getPostBySlug } from "@/services/postServices";
+import { getPostBySlug, getPosts } from "@/services/postServices";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
+
+
+
+
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    postSlug: post.slug,
+  }));
+}
 
 export async function generateMetadata({ params }) {
   const post = await getPostBySlug(params.postSlug);
@@ -37,5 +47,4 @@ async function SinglePost({ params }) {
     </div>
   );
 }
-
 export default SinglePost;
