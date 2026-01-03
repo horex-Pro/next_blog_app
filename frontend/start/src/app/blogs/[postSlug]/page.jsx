@@ -1,10 +1,10 @@
+import { getPostBySlug } from "@/services/postServices";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
-import { getPostBySlug } from "../../../../services/postServices";
 
 export async function generateMetadata({ params }) {
-  const  post  = await getPostBySlug(params.postSlug);
+  const post = await getPostBySlug(params.postSlug);
 
   return {
     title: post ? post.title : "پست یافت نشد",
@@ -13,7 +13,7 @@ export async function generateMetadata({ params }) {
 }
 
 async function SinglePost({ params }) {
-  const  post  = await getPostBySlug(params.postSlug);
+  const post = await getPostBySlug(params.postSlug);
   if (!post) notFound();
 
   return (
