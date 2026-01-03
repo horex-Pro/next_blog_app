@@ -1,14 +1,19 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
+import { getPostBySlug } from "../../../../services/postServices";
+
+export async function generateMetadata({ params }) {
+  const  post  = await getPostBySlug(params.postSlug);
+
+  return {
+    title: post ? post.title : "پست یافت نشد",
+    description: post ? post.briefText : "پستی با این مشخصات یافت نشد.",
+  };
+}
 
 async function SinglePost({ params }) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/post/slug/${params.postSlug}`
-  );
-
-  const { data } = await response.json();
-  const { post } = data || {};
+  const  post  = await getPostBySlug(params.postSlug);
   if (!post) notFound();
 
   return (
