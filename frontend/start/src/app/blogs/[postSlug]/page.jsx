@@ -18,7 +18,6 @@ export async function generateMetadata({ params }) {
     description: post ? post.briefText : "پستی با این مشخصات یافت نشد.",
   };
 }
-
 async function SinglePost({ params }) {
   const post = await getPostBySlug(params.postSlug);
   if (!post) notFound();
