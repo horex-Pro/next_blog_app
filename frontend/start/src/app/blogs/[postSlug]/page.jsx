@@ -16,6 +16,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const post = await getPostBySlug(params.postSlug);
 
+  
   return {
     title: post ? post.title : "پست یافت نشد",
     description: post ? post.briefText : "پستی با این مشخصات یافت نشد.",
