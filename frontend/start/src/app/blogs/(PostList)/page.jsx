@@ -3,11 +3,9 @@ import PostList from "../_components/PostList";
 import Spinner from "@/components/ui/Spinner";
 
 async function BlogPage() {
-  
-
   return (
     <div>
-      <Suspense fallback={<Spinner/>}>
+      <Suspense fallback={<Spinner />}>
         <PostList />
       </Suspense>
     </div>
