@@ -73,6 +73,9 @@ function Signup() {
           {" "}
           ثبت نام
         </Button>
+        <Link href="/signin" className="text-secondary-400 mt-6 text-center">
+          ورود
+        </Link>
       </form>
     </div>
   );
