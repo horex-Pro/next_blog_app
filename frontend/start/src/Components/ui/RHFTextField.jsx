@@ -6,6 +6,7 @@ export default function RHFTextField({
   register,
   errors,
   validationSchema = {},
+  isRequired,
   ...rest
 }) {
   const errorMessages = errors?.[name];
@@ -16,6 +17,7 @@ export default function RHFTextField({
     >
       <label htmlFor={name} className="mb-2 block text-secondary-700">
         {label}
+        {isRequired && <span className=" text-error">*</span>}
       </label>
       <input
         autoComplete="off"
