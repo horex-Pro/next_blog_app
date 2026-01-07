@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Link from "next/link";
-import { signupApi } from "@/services/authService";
-import toast from "react-hot-toast";
+import SpinnerMini from "@/components/ui/SpinnerMini";
+import { useAuth } from "@/context/AuthContext";
 
 const schema = yup
   .object({
@@ -23,7 +23,7 @@ function Signup() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onTouched",
@@ -65,10 +65,15 @@ function Signup() {
           isRequired
           errors={errors}
         />
-        <Button type="submit" className="w-full" variant="primary">
-          {" "}
-          ثبت نام
-        </Button>
+        <div>
+          <Button
+            type="submit"
+            className="w-full flex justify-center items-center "
+            variant="primary"
+          >
+            {isLoading ? <SpinnerMini /> : " ثبت نام"}
+          </Button>
+        </div>
         <Link href="/signin" className="text-secondary-400 mt-6 text-center">
           ورود
         </Link>

@@ -1,9 +1,10 @@
 "use client";
 
-import { signinApi, signupApi } from "@/services/authService";
+import { getUserApi, signinApi, signupApi } from "@/services/authService";
 import { useRouter } from "next/router";
 
-import { createContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import toast from "react-hot-toast";
 
 const AuthContext = createContext();
 
@@ -26,14 +27,18 @@ const authReducer = (state, action) => {
         user: action.payload,
         isLoading: false,
         isAuthenticated: true,
-        error: null,
       };
     case "signup":
       return {
         user: action.payload,
         isLoading: false,
         isAuthenticated: true,
-        error: null,
+      };
+    case "user/loaded":
+      return {
+        user: action.payload,
+        isLoading: false,
+        isAuthenticated: true,
       };
   }
 };
@@ -44,7 +49,7 @@ export default function AuthProvider({ children }) {
     initialState
   );
 
-  const router = useRouter();
+  //   const router = useRouter();
 
   async function signin(values) {
     dispatch({ type: "loading" });
@@ -52,7 +57,7 @@ export default function AuthProvider({ children }) {
       const { user, message } = await signinApi(values);
       toast.success(message);
       dispatch({ type: "signin", payload: user });
-      router.push("/profile");
+      //   router.push("/profile");
     } catch (error) {
       const errorMessage =
         error?.response?.data?.message || "خطایی رخ داده است";
@@ -67,7 +72,7 @@ export default function AuthProvider({ children }) {
       const { user, message } = await signupApi(values);
       toast.success(message);
       dispatch({ type: "signup", payload: user });
-      router.push("/profile");
+      //   router.push("/profile");
     } catch (error) {
       const errorMessage =
         error?.response?.data?.message || "خطایی رخ داده است";
@@ -75,6 +80,28 @@ export default function AuthProvider({ children }) {
       toast.error(errorMessage);
     }
   }
+
+  async function getUser() {
+    dispatch({ type: "loading" });
+    try {
+      const { user, message } = await getUserApi();
+      console.log(user);
+      dispatch({ type: "user/loaded", payload: user });
+    } catch (error) {
+        console.log(error)
+      const errorMessage =
+        error?.response?.data?.message || "خطایی رخ داده است";
+      dispatch({ type: "rejected", payload: errorMessage });
+      toast.error(errorMessage);
+    }
+  }
+
+  useEffect(() => {
+    async function loadUser() {
+      await getUser();
+    }
+    loadUser();
+  }, []);
 
   return (
     <AuthContext.Provider
