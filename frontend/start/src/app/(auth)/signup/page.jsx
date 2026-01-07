@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Link from "next/link";
 import { signupApi } from "@/services/authService";
+import toast from "react-hot-toast";
 
 const schema = yup
   .object({
@@ -31,9 +32,10 @@ function Signup() {
   const onSubmit = async (values) => {
     try {
       const { user, message } = await signupApi(values);
+      toast.success(message);
       console.log(user, message);
     } catch (error) {
-      console.log(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
   return (
