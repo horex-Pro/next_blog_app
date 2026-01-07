@@ -1,7 +1,6 @@
 "use client";
 
 import NavLink from "./NavLink";
-// import { useAuth } from "@/context/AuthContext";
 
 const navLinks = [
   {
@@ -17,7 +16,7 @@ const navLinks = [
 ];
 
 function Header() {
-  // const { user, isLoading } = useAuth();
+  const user = false;
 
   return (
     <header
@@ -35,7 +34,11 @@ function Header() {
             })}
           </div>
           <li>
-            <NavLink path="/signin">ورود</NavLink>
+            {user ? (
+              <NavLink path="/profile">پروفایل</NavLink>
+            ) : (
+              <NavLink path="/signin">ورود</NavLink>
+            )}
           </li>
         </ul>
       </nav>

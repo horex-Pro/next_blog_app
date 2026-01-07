@@ -29,14 +29,10 @@ function Signup() {
     mode: "onTouched",
   });
 
+  const { signup } = useAuth();
+
   const onSubmit = async (values) => {
-    try {
-      const { user, message } = await signupApi(values);
-      toast.success(message);
-      console.log(user, message);
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
+    await signup(values);
   };
   return (
     <div>
