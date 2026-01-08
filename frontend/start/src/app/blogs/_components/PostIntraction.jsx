@@ -59,6 +59,7 @@ function PostIntraction({ post }) {
 
     const prevBookmarked = isBookmarked;
 
+
     setIsBookmarked(!prevBookmarked);
 
     try {
