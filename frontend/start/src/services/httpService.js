@@ -19,7 +19,10 @@ app.interceptors.response.use(
     if (error.response.status === 401 && !originalConfig._retry) {
       originalConfig._retry = true;
       try {
-        const { data } = await app.get("/user/refresh-token");
+        const { data } = await axios.get(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/user/refresh-token`,
+          { withCredentials: true }
+        );
         if (data) return app(originalConfig);
       } catch (error) {
         return Promise.reject(error);
