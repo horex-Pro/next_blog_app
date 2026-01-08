@@ -9,8 +9,6 @@ async function CategoryList() {
     data: { categories },
   } = await response.json();
 
-  console.log(categories);
-
   return (
     <ul className=" space-y-4">
       <Link href={`/blogs/`}>همه</Link>

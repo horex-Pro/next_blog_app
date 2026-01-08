@@ -1,7 +1,7 @@
 "use client";
 
 import { getUserApi, signinApi, signupApi } from "@/services/authService";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import { createContext, useContext, useEffect, useReducer } from "react";
 import toast from "react-hot-toast";
@@ -49,6 +49,7 @@ export default function AuthProvider({ children }) {
     initialState
   );
 
+  const router = useRouter();
 
   async function signin(values) {
     dispatch({ type: "loading" });
@@ -56,7 +57,7 @@ export default function AuthProvider({ children }) {
       const { user, message } = await signinApi(values);
       toast.success(message);
       dispatch({ type: "signin", payload: user });
-      //   router.push("/profile");
+      router.push("/profile");
     } catch (error) {
       const errorMessage =
         error?.response?.data?.message || "خطایی رخ داده است";
@@ -71,7 +72,7 @@ export default function AuthProvider({ children }) {
       const { user, message } = await signupApi(values);
       toast.success(message);
       dispatch({ type: "signup", payload: user });
-      //   router.push("/profile");
+      router.push("/profile");
     } catch (error) {
       const errorMessage =
         error?.response?.data?.message || "خطایی رخ داده است";
@@ -84,10 +85,9 @@ export default function AuthProvider({ children }) {
     dispatch({ type: "loading" });
     try {
       const { user, message } = await getUserApi();
-      console.log(user);
       dispatch({ type: "user/loaded", payload: user });
+      router.push("/profile");
     } catch (error) {
-      console.log(error);
       const errorMessage =
         error?.response?.data?.message || "خطایی رخ داده است";
       dispatch({ type: "rejected", payload: errorMessage });
