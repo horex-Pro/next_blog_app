@@ -1,7 +1,7 @@
 "use client";
 
 import ButtonIcon from "@/components/ui/ButtonIcon";
-import { likePostApi } from "@/services/postServices";
+import { bookmarkPostApi, likePostApi } from "@/services/postServices";
 import { toPersianDigits } from "@/utils/numberFormatter";
 
 import {
@@ -21,15 +21,21 @@ import toast from "react-hot-toast";
 function PostIntraction({ post }) {
   const [isLiked, setIsLiked] = useState(post.isLiked);
   const [likesCount, setLikesCount] = useState(post.likesCount);
-  const [isPending, setIsPending] = useState(false);
+  const [likePending, setLikePending] = useState(false);
+
+  // bookmark state
+  const [isBookmarked, setIsBookmarked] = useState(post.isBookmarked);
+  const [bookmarkPending, setBookmarkPending] = useState(false);
 
   const likeHandler = async () => {
-    if (isPending) return;
+    if (likePending) return;
 
-    setIsPending(true);
+    setLikePending(true);
+
     const prevLiked = isLiked;
     const prevLikesCount = likesCount;
 
+    // optimistic update
     setIsLiked(!prevLiked);
     setLikesCount(prevLiked ? prevLikesCount - 1 : prevLikesCount + 1);
 
@@ -37,11 +43,32 @@ function PostIntraction({ post }) {
       const { message } = await likePostApi(post._id);
       toast.success(message);
     } catch (error) {
+      // rollback
       setIsLiked(prevLiked);
       setLikesCount(prevLikesCount);
       toast.error(error?.response?.data?.message || "خطایی رخ داده است");
     } finally {
-      setIsPending(false);
+      setLikePending(false);
+    }
+  };
+
+  const bookmarkHandler = async () => {
+    if (bookmarkPending) return;
+
+    setBookmarkPending(true);
+
+    const prevBookmarked = isBookmarked;
+
+    setIsBookmarked(!prevBookmarked);
+
+    try {
+      const { message } = await bookmarkPostApi(post._id);
+      toast.success(message);
+    } catch (error) {
+      setIsBookmarked(prevBookmarked);
+      toast.error(error?.response?.data?.message || "خطایی رخ داده است");
+    } finally {
+      setBookmarkPending(false);
     }
   };
 
@@ -52,13 +79,17 @@ function PostIntraction({ post }) {
         <span>{toPersianDigits(post.commentsCount)}</span>
       </ButtonIcon>
 
-      <ButtonIcon variant="red" onClick={likeHandler} disabled={isPending}>
+      <ButtonIcon variant="red" onClick={likeHandler} disabled={likePending}>
         {isLiked ? <HeartIconSolid /> : <HeartIcon />}
         <span>{toPersianDigits(likesCount)}</span>
       </ButtonIcon>
 
-      <ButtonIcon variant="primary">
-        <BookmarkIcon />
+      <ButtonIcon
+        variant="primary"
+        onClick={bookmarkHandler}
+        disabled={bookmarkPending}
+      >
+        {isBookmarked ? <BookmarkIconSolid /> : <BookmarkIcon />}
       </ButtonIcon>
     </div>
   );
