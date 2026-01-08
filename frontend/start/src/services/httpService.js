@@ -5,6 +5,31 @@ const app = axios.create({
   withCredentials: true,
 });
 
+app.interceptors.request.use(
+  (response) => response,
+  (error) => {
+    Promise.reject(error);
+  }
+);
+
+app.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalConfig = error.config;
+    if (error.response.status === 401 && !originalConfig._retry) {
+      originalConfig._retry = true;
+      try {
+        const { data } = await app.get("/user/refresh-token");
+        if (data) return app(originalConfig);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    }
+
+    return promise.reject(error);
+  }
+);
+
 const http = {
   get: app.get,
   patch: app.patch,

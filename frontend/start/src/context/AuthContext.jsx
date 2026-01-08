@@ -49,7 +49,6 @@ export default function AuthProvider({ children }) {
     initialState
   );
 
-  //   const router = useRouter();
 
   async function signin(values) {
     dispatch({ type: "loading" });
@@ -88,7 +87,7 @@ export default function AuthProvider({ children }) {
       console.log(user);
       dispatch({ type: "user/loaded", payload: user });
     } catch (error) {
-        console.log(error)
+      console.log(error);
       const errorMessage =
         error?.response?.data?.message || "خطایی رخ داده است";
       dispatch({ type: "rejected", payload: errorMessage });
