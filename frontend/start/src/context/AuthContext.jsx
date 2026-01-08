@@ -86,7 +86,6 @@ export default function AuthProvider({ children }) {
     try {
       const { user, message } = await getUserApi();
       dispatch({ type: "user/loaded", payload: user });
-      router.push("/profile");
     } catch (error) {
       const errorMessage =
         error?.response?.data?.message || "خطایی رخ داده است";

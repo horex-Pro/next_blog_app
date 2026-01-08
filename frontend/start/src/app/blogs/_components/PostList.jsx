@@ -6,9 +6,13 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import Author from "./Author";
 import PostIntraction from "./PostIntraction";
 import { getPosts } from "@/services/postServices";
+import setCookieOnReq from "@/utils/setCookieOnReq";
+import { cookies } from "next/headers";
 
 async function PostList() {
-  const posts = await getPosts();
+  const cookieStore = await cookies();
+  const options = setCookieOnReq(cookieStore);
+  const posts = await getPosts(options);
 
   if (!posts || posts.length === 0) return null;
 
