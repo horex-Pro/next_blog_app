@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import Modal from "@/components/ui/Modal";
 import Link from "next/link";
 
 export const metadata = {
