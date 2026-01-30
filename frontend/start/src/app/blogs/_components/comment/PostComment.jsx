@@ -35,8 +35,10 @@ function PostComment({
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        title="test"
-        description="test"
+        title={parent ? "ثبت پاسخ" : "ثبت نظر جدید"}
+        description={
+          parent ? "ثبت پاسخ به نظر " + parent.user.name : "ثبت نظر جدید برای این پست"
+        }
       >
         <CommentForm />
       </Modal>
@@ -55,11 +57,11 @@ function PostComment({
         {comments.length > 0 ? (
           comments.map((comment) => {
             return (
-              <div key={comment._id}>
+              <div key={comment}>
                 <div className="border border-secondary-200 rounded-xl p-2 sm:p-4 mb-3">
                   <Comment
                     comment={comment}
-                    onAddComment={() => addNewCommentHandler(comment._id)}
+                    onAddComment={() => addNewCommentHandler(comment)}
                   />
                 </div>
                 <div className="post-comments__answer mr-2 sm:mr-8 space-y-3">
