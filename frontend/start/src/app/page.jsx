@@ -14,8 +14,8 @@ export default function Home() {
       </h1>
 
       <div>
-        <p className="text-center text-secondary-500 text-lg leading-loose">-
-          جایی که قراره بتونی یه اپلیکیشن بلاگ کامل رو مدیریت کنی!
+        <p className="text-center text-secondary-500 text-lg leading-loose">
+          - جایی که قراره بتونی یه اپلیکیشن بلاگ کامل رو مدیریت کنی!
           <br /> بتونی بلاگ بسازی - کامنت بگذاری و در پنلت همه اتفاقات رو رصد
           کنی!
         </p>

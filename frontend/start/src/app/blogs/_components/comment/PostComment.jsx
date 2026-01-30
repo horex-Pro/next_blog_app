@@ -6,6 +6,9 @@ import Comment from "./Comment";
 import classNames from "classnames";
 import Modal from "@/components/ui/Modal";
 import { useState } from "react";
+import CommentForm from "./CommentForm";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 function PostComment({
   post: {
@@ -14,6 +17,18 @@ function PostComment({
   },
 }) {
   const [open, setOpen] = useState(false);
+  const [parent, setParent] = useState(null);
+  const { user } = useAuth();
+  const router = useRouter();
+
+  const addNewCommentHandler = (parent) => {
+    if (!user) {
+      router.push("/signin");
+      return;
+    }
+    setParent(parent);
+    setOpen(true);
+  };
 
   return (
     <div className="mb-10">
@@ -22,10 +37,16 @@ function PostComment({
         onClose={() => setOpen(false)}
         title="test"
         description="test"
-      ></Modal>
+      >
+        <CommentForm />
+      </Modal>
       <div className="flex flex-col items-center lg:flex-row justify-between gap-y-3 mb-8">
         <h2 className=" text-2xl font-bold text-secondary-800">نظرات:</h2>
-        <Button variant="outline" className="flex items-center py-2">
+        <Button
+          variant="outline"
+          className="flex items-center py-2"
+          onClick={() => addNewCommentHandler(null)}
+        >
           <QuestionMarkCircleIcon className="w-4 ml-2" />
           <span>ثبت نظر جدید</span>
         </Button>
@@ -36,7 +57,10 @@ function PostComment({
             return (
               <div key={comment._id}>
                 <div className="border border-secondary-200 rounded-xl p-2 sm:p-4 mb-3">
-                  <Comment comment={comment} />
+                  <Comment
+                    comment={comment}
+                    onAddComment={() => addNewCommentHandler(comment._id)}
+                  />
                 </div>
                 <div className="post-comments__answer mr-2 sm:mr-8 space-y-3">
                   {comment.answers.map((item, index) => {
