@@ -15,7 +15,9 @@ function PostComment({
     comments,
     _id: { postId },
   },
+  post
 }) {
+  // console.log(post)
   const [open, setOpen] = useState(false);
   const [parent, setParent] = useState(null);
   const { user } = useAuth();
@@ -42,7 +44,7 @@ function PostComment({
             : "ثبت نظر جدید برای این پست"
         }
       >
-        <CommentForm parentId={parent ? parent._id : null} postId={postId} />
+        <CommentForm parentId={parent ? parent._id : null} postId={post._id} />
       </Modal>
       <div className="flex flex-col items-center lg:flex-row justify-between gap-y-3 mb-8">
         <h2 className=" text-2xl font-bold text-secondary-800">نظرات:</h2>

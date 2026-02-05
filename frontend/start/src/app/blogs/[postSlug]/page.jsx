@@ -26,8 +26,6 @@ async function SinglePost({ params }) {
   const post = await getPostBySlug(postSlug);
   if (!post) notFound();
 
-  console.log(post.related);
-
   return (
     <div className="text-secondary-600 max-w-screen-md mx-auto">
       <h1 className="text-secondary-700 text-2xl font-bold mb-8">

@@ -4,10 +4,11 @@ import { createCommentApi } from "@/services/commentService";
 import setCookieOnReq from "@/utils/setCookieOnReq";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import toast from "react-hot-toast";
 
 export async function createComment(postId, parentId, formData) {
   const cookiesStore = await cookies();
-  const options = setCookieOnReq(cookiesStore);
+  const options = await setCookieOnReq(cookiesStore);
 
   const rawFormData = {
     postId,
@@ -16,11 +17,10 @@ export async function createComment(postId, parentId, formData) {
   };
 
   try {
-    const { message } = await createCommentApi(rawFormData, options);
-
-    console.log(message);
+    const response = await createCommentApi(rawFormData, options);
   } catch (error) {
     console.log(error?.response?.data?.message);
   }
-  revalidatePath("/blogs/[postSlug]");
+
+  revalidatePath("/blogs/");
 }

@@ -8,6 +8,8 @@ import React, { useState } from "react";
 function CommentForm({ postId, parentId }) {
   const [text, setText] = useState("");
 
+  console.log(postId);
+
   const createCommentWithData = createComment.bind(null, postId, parentId);
   return (
     <div>
