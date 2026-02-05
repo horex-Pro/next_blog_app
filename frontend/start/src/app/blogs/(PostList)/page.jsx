@@ -23,7 +23,9 @@ async function BlogPage({ searchParams }) {
             : ` نشان دادن ${posts.length} برای`}
           <span className="font-bold">&quot{search}</span>
         </p>
-      ) : <p>helo</p>}
+      ) : (
+        <p>helo</p>
+      )}
       <PostList posts={posts} />
     </div>
   );

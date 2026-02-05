@@ -13,7 +13,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const post = await getPostBySlug(params.postSlug);
+  const { postSlug } = await params;
+  const post = await getPostBySlug(postSlug);
 
   return {
     title: post ? post.title : "پست یافت نشد",
@@ -21,7 +22,8 @@ export async function generateMetadata({ params }) {
   };
 }
 async function SinglePost({ params }) {
-  const post = await getPostBySlug(params.postSlug);
+  const { postSlug } = await params;
+  const post = await getPostBySlug(postSlug);
   if (!post) notFound();
 
   console.log(post.related);

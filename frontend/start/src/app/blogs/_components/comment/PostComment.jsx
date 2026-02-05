@@ -88,7 +88,7 @@ function PostComment({
             );
           })
         ) : (
-          <p className=" text-secondary-500">برای این پست نظری قبت نشده است</p>
+          <p className=" text-secondary-500">برای این پست نظری ثبت نشده است</p>
         )}
       </div>
     </div>
