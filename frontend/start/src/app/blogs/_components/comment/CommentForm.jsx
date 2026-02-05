@@ -1,16 +1,18 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import SpinnerMini from "@/components/ui/SpinnerMini";
+import SubmitButton from "@/components/ui/SubmissionButton";
 import TextArea from "@/components/ui/TextArea";
 import { createComment } from "@/lib/actions";
 import React, { useState } from "react";
+import { useFormStatus } from "react-dom";
 
 function CommentForm({ postId, parentId }) {
   const [text, setText] = useState("");
-
-  console.log(postId);
-
   const createCommentWithData = createComment.bind(null, postId, parentId);
+  const { pending } = useFormStatus();
+
   return (
     <div>
       <div className="flex justify-center mt-4">
@@ -27,7 +29,7 @@ function CommentForm({ postId, parentId }) {
               isRequired
               onChange={(e) => setText(e.target.value)}
             />
-            <Button>تایید</Button>
+            <SubmitButton>تایید</SubmitButton>
           </form>
         </div>
       </div>
