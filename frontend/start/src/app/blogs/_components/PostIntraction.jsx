@@ -1,99 +1,62 @@
 "use client";
 
-import ButtonIcon from "@/components/ui/ButtonIcon";
-import { bookmarkPostApi, likePostApi } from "@/services/postServices";
 import { toPersianDigits } from "@/utils/numberFormatter";
-
 import {
+  ChatBubbleOvalLeftEllipsisIcon,
   BookmarkIcon,
-  ChatBubbleLeftEllipsisIcon,
   HeartIcon,
 } from "@heroicons/react/24/outline";
-
 import {
-  BookmarkIcon as BookmarkIconSolid,
-  HeartIcon as HeartIconSolid,
+  HeartIcon as SolidHearIcon,
+  BookmarkIcon as SolideBookmarkIcon,
 } from "@heroicons/react/24/solid";
-
-import { useState } from "react";
 import toast from "react-hot-toast";
+import { usePathname, useRouter } from "next/navigation";
+import ButtonIcon from "@/components/ui/ButtonIcon";
+import { bookmarkPostApi, likePostApi } from "@/services/postServices";
 
-function PostIntraction({ post }) {
-  const [isLiked, setIsLiked] = useState(post.isLiked);
-  const [likesCount, setLikesCount] = useState(post.likesCount);
-  const [likePending, setLikePending] = useState(false);
+const PostInteraction = ({ post }) => {
+  const router = useRouter();
+  const pathname = usePathname();
 
-  // bookmark state
-  const [isBookmarked, setIsBookmarked] = useState(post.isBookmarked);
-  const [bookmarkPending, setBookmarkPending] = useState(false);
 
-  const likeHandler = async () => {
-    if (likePending) return;
-
-    setLikePending(true);
-
-    const prevLiked = isLiked;
-    const prevLikesCount = likesCount;
-
-    // optimistic update
-    setIsLiked(!prevLiked);
-    setLikesCount(prevLiked ? prevLikesCount - 1 : prevLikesCount + 1);
-
+  const likeHandler = async (postId) => {
     try {
-      const { message } = await likePostApi(post._id);
+      const { message } = await likePostApi(postId);
+      router.refresh();
       toast.success(message);
-    } catch (error) {
-      // rollback
-      setIsLiked(prevLiked);
-      setLikesCount(prevLikesCount);
-      toast.error(error?.response?.data?.message || "خطایی رخ داده است");
-    } finally {
-      setLikePending(false);
+    } catch (err) {
+      console.log(err);
+
+      toast.error(err?.response?.data?.message);
     }
   };
 
-  const bookmarkHandler = async () => {
-    if (bookmarkPending) return;
-
-    setBookmarkPending(true);
-
-    const prevBookmarked = isBookmarked;
-
-
-    setIsBookmarked(!prevBookmarked);
-
+  const bookmarkHandler = async (postId) => {
     try {
-      const { message } = await bookmarkPostApi(post._id);
+      const { message } = await bookmarkPostApi(postId);
+      router.refresh();
       toast.success(message);
     } catch (error) {
-      setIsBookmarked(prevBookmarked);
-      toast.error(error?.response?.data?.message || "خطایی رخ داده است");
-    } finally {
-      setBookmarkPending(false);
+      toast.error(err?.response?.data?.message);
     }
   };
 
   return (
     <div className="flex items-center gap-x-4">
       <ButtonIcon variant="secondary">
-        <ChatBubbleLeftEllipsisIcon />
+        <ChatBubbleOvalLeftEllipsisIcon />
         <span>{toPersianDigits(post.commentsCount)}</span>
       </ButtonIcon>
-
-      <ButtonIcon variant="red" onClick={likeHandler} disabled={likePending}>
-        {isLiked ? <HeartIconSolid /> : <HeartIcon />}
-        <span>{toPersianDigits(likesCount)}</span>
+      <ButtonIcon onClick={() => likeHandler(post._id)} variant="red">
+        {post.isLiked ? <SolidHearIcon /> : <HeartIcon />}
+        <span>{toPersianDigits(post.likesCount)}</span>
       </ButtonIcon>
-
-      <ButtonIcon
-        variant="primary"
-        onClick={bookmarkHandler}
-        disabled={bookmarkPending}
-      >
-        {isBookmarked ? <BookmarkIconSolid /> : <BookmarkIcon />}
+      <ButtonIcon onClick={() => bookmarkHandler(post._id)} variant="primary">
+        {post.isBookmarked ? <SolideBookmarkIcon /> : <BookmarkIcon />}
       </ButtonIcon>
     </div>
   );
-}
+};
 
-export default PostIntraction;
+export default PostInteraction;

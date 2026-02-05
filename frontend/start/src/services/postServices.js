@@ -2,7 +2,7 @@ import http from "./httpService";
 
 export async function getPostBySlug(params) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/post/slug/${params}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/post/slug/${params}`,
   );
 
   const { data } = await response.json();
@@ -14,7 +14,7 @@ export async function getPostBySlug(params) {
 export async function getPosts(queries, options) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/post/list?${queries}`,
-    options
+    options,
   );
 
   const { data } = await response.json();
