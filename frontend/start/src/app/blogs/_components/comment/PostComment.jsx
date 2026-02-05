@@ -42,7 +42,7 @@ function PostComment({
             : "ثبت نظر جدید برای این پست"
         }
       >
-        <CommentForm />
+        <CommentForm parentId={parent ? parent._id : null} postId={postId} />
       </Modal>
       <div className="flex flex-col items-center lg:flex-row justify-between gap-y-3 mb-8">
         <h2 className=" text-2xl font-bold text-secondary-800">نظرات:</h2>

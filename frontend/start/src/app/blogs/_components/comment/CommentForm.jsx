@@ -5,8 +5,10 @@ import TextArea from "@/components/ui/TextArea";
 import { createComment } from "@/lib/actions";
 import React, { useState } from "react";
 
-function CommentForm() {
+function CommentForm({ postId, parentId }) {
   const [text, setText] = useState("");
+
+  const createCommentWithData = createComment.bind(null, postId, parentId);
   return (
     <div>
       <div className="flex justify-center mt-4">
@@ -14,7 +16,7 @@ function CommentForm() {
           <form
             // ref={ref}
             className="space-y-7"
-            action={createComment}
+            action={createCommentWithData}
           >
             <TextArea
               name="text"
