@@ -2,6 +2,7 @@
 
 import Button from "@/components/ui/Button";
 import TextArea from "@/components/ui/TextArea";
+import { createComment } from "@/lib/actions";
 import React, { useState } from "react";
 
 function CommentForm() {
@@ -13,10 +14,7 @@ function CommentForm() {
           <form
             // ref={ref}
             className="space-y-7"
-            action={async (formData) => {
-              await formAction({ formData, postId, parentId });
-              ref?.current?.reset();
-            }}
+            action={createComment}
           >
             <TextArea
               name="text"

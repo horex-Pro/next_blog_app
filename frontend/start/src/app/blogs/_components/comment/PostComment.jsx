@@ -37,7 +37,9 @@ function PostComment({
         onClose={() => setOpen(false)}
         title={parent ? "ثبت پاسخ" : "ثبت نظر جدید"}
         description={
-          parent ? "ثبت پاسخ به نظر " + parent.user.name : "ثبت نظر جدید برای این پست"
+          parent
+            ? "ثبت پاسخ به نظر " + parent.user.name
+            : "ثبت نظر جدید برای این پست"
         }
       >
         <CommentForm />
@@ -73,7 +75,7 @@ function PostComment({
                             "answer-item border border-secondary-100 bg-secondary-50/80 rounded-xl p-2 sm:p-4",
                             {
                               "last-item": index + 1 === comment.answers.length,
-                            }
+                            },
                           )}
                         >
                           <Comment comment={item} key={item._id} />
