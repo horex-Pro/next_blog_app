@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import toast from "react-hot-toast";
 
-export async function createComment(postId, parentId, formData) {
+export async function createComment(prevState,{formData , postId , parentId}) {
   const cookiesStore = await cookies();
   const options = await setCookieOnReq(cookiesStore);
 
@@ -17,10 +17,18 @@ export async function createComment(postId, parentId, formData) {
   };
 
   try {
-    const response = await createCommentApi(rawFormData, options);
-  } catch (error) {
-    console.log(error?.response?.data?.message);
+    const {message} = await createCommentApi(rawFormData, options);
+    revalidatePath("/blogs/[postSlug]");
+    return{
+      message,
+    }
+  } catch (err) {
+    console.log(err?.response?.data?.message);
+    const error = err?.response?.data?.message
+    return{
+      error, 
+    }
   }
 
-  revalidatePath("/blogs/");
+  
 }

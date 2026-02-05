@@ -1,17 +1,29 @@
 "use client";
 
-import Button from "@/components/ui/Button";
-import SpinnerMini from "@/components/ui/SpinnerMini";
 import SubmitButton from "@/components/ui/SubmissionButton";
 import TextArea from "@/components/ui/TextArea";
 import { createComment } from "@/lib/actions";
-import React, { useState } from "react";
-import { useFormStatus } from "react-dom";
+import React, { useState, useActionState, useEffect } from "react";
+import toast from "react-hot-toast";
 
-function CommentForm({ postId, parentId }) {
+const initialState = {
+  error: "",
+  message: "",
+};
+
+function CommentForm({ postId, parentId, onClose }) {
   const [text, setText] = useState("");
-  const createCommentWithData = createComment.bind(null, postId, parentId);
-  const { pending } = useFormStatus();
+  const [state, formAction] = useActionState(createComment, initialState);
+
+  useEffect(() => {
+    if (state?.message) {
+      toast.success(state.message);
+      onClose();
+    }
+    if (state?.error) {
+      toast.error(state.error);
+    }
+  }, [state]);
 
   return (
     <div>
@@ -20,7 +32,10 @@ function CommentForm({ postId, parentId }) {
           <form
             // ref={ref}
             className="space-y-7"
-            action={createCommentWithData}
+            // action={createCommentWithData}
+            action={async (formData) => {
+              await formAction({ formData, postId, parentId });
+            }}
           >
             <TextArea
               name="text"
