@@ -1,4 +1,4 @@
-import PostList from "app/blogs/_components/PostList";
+import PostList from "app/(blogs)/blogs/_components/PostList";
 import queryString from "query-string";
 import React from "react";
 
