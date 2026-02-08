@@ -5,7 +5,6 @@ import Avatar from "@/components/ui/Avatar";
 import { useAuth } from "@/context/AuthContext";
 
 function Header({}) {
-  // const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   const { user, isLoading } = useAuth();
   return (
     <header

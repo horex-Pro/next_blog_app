@@ -32,7 +32,6 @@ function CommentForm({ postId, parentId, onClose }) {
           <form
             // ref={ref}
             className="space-y-7"
-            // action={createCommentWithData}
             action={async (formData) => {
               await formAction({ formData, postId, parentId });
             }}
