@@ -8,16 +8,16 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SideBar from "./SideBar";
 import Drawer from "@/components/ui/Drawer";
 
-function Header({}) {
+function Header() {
   const { user, isLoading } = useAuth();
-  const { isOpenDrawer, setIsOpenDrawer } = useState(false);
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false);
   return (
     <header
       className={`bg-secondary-0 ${isLoading ? "bg-opacity-30 blur-md" : ""}`}
     >
       <div className="flex items-center justify-between py-5 px-4 lg:px-8">
         <div className="flex items-center gap-x-3">
-          <div className="flex flex-col lg:flex-row justify-start lg:items-center gap-x-2">
+          <div className="flex items-center lg:flex-row justify-start  lg:items-center gap-x-2">
             <ButtonIcon
               onClick={() => setIsOpenDrawer(!isOpenDrawer)}
               className="block lg:hidden border-none"
