@@ -6,6 +6,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SideBar from "./SideBar";
+import Drawer from "@/components/ui/Drawer";
 
 function Header({}) {
   const { user, isLoading } = useAuth();

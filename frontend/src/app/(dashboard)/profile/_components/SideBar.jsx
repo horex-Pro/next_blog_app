@@ -3,9 +3,11 @@
 import {
   ArrowLeftStartOnRectangleIcon,
   HomeIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import SideBarNavs from "./SideBarNavs";
+import ButtonIcon from "@/components/ui/ButtonIcon";
 
 function SideBar() {
   return (
@@ -19,7 +21,13 @@ function SideBar() {
         <HomeIcon className="w-6 h-6" />
         <span> نکست بلاگ</span>
       </Link>
-      {/* Drawer content */}
+      <ButtonIcon
+        onClick={onclose}
+        className="block lg:hidden border-none"
+        variant="outline"
+      >
+        <XMarkIcon />
+      </ButtonIcon>
       <div className="overflow-y-auto flex-auto">
         <SideBarNavs />
         <div
