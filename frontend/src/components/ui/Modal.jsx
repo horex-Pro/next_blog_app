@@ -36,7 +36,7 @@ function Modal({ onClose, title, children, description = "", open }) {
           {children}
         </div>
       </div>,
-      document.body
+      document.body,
     )
   );
 }
