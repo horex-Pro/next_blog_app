@@ -11,6 +11,7 @@ export async function getPostBySlug(params) {
   return post;
 }
 export async function getPosts(queries, options) {
+  console.log("Fetching posts with options:", await options);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/post/list?${queries}`,
     options,

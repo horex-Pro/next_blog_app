@@ -11,7 +11,7 @@ async function isAuthWithCookie(req, res, next) {
     }
     const token = cookieParser.signedCookie(
       userToken,
-      process.env.COOKIE_PARSER_SECRET_KEY
+      process.env.COOKIE_PARSER_SECRET_KEY,
     );
     JWT.verify(token, process.env.TOKEN_SECRET_KEY, async (err, payload) => {
       if (err) throw createHttpError.Unauthorized("توکن نامعتبر است");
@@ -37,7 +37,7 @@ async function verifyAccessToken(req, res, next) {
     }
     const token = cookieParser.signedCookie(
       accessToken,
-      process.env.COOKIE_PARSER_SECRET_KEY
+      process.env.COOKIE_PARSER_SECRET_KEY,
     );
     JWT.verify(
       token,
@@ -56,7 +56,7 @@ async function verifyAccessToken(req, res, next) {
         } catch (error) {
           next(error);
         }
-      }
+      },
     );
   } catch (error) {
     next(error);
