@@ -1,14 +1,16 @@
 import { fetchCardData } from "@/services/data";
 import React from "react";
+import { Card } from "./_components/Card";
 
 async function ProfilePage() {
-  await fetchCardData();
+  const { numberOfComments, numberOfUsers, numberOfPosts } =
+    await fetchCardData();
   return (
     <div>
       <div className="grid gap-6 md:grid-cols-3 mb-8">
-        <div></div>
-        <div></div>
-        <div></div>
+        <Card title="کاربران" value={numberOfUsers} type="users" />
+        <Card title="پست ها" value={numberOfPosts} type="posts" />
+        <Card title="نظرات" value={numberOfComments} type="comments" />
       </div>
     </div>
   );
