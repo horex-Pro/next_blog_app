@@ -22,7 +22,6 @@ export async function createComment(prevState, { formData, postId, parentId }) {
       message,
     };
   } catch (err) {
-    console.log(err?.response?.data?.message);
     const error = err?.response?.data?.message;
     return {
       error,
