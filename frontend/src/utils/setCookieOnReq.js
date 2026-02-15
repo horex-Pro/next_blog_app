@@ -1,10 +1,12 @@
-export default async function setCookieOnReq(cookies) {
-  const accessToken = cookies.get("accessToken");
-  const refreshToken = cookies.get("refreshToken");
-
+export default function setCookiesOnReq(cookies) {
   const options = {
     headers: {
-      Cookie: `${accessToken?.name}=${accessToken?.value}; ${refreshToken?.name}=${refreshToken?.value}`,
+      Cookie:
+        `${cookies.get("accessToken")?.name}=${
+          cookies.get("accessToken")?.value
+        }; ${cookies.get("refreshToken")?.name}=${
+          cookies.get("refreshToken")?.value
+        }` || "-",
     },
   };
 
