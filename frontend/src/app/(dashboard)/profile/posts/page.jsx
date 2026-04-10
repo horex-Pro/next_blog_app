@@ -1,12 +1,12 @@
 import React from "react";
-import PostTable from "./_components/PostTable";
+import PostsTable from "./_/components/PostsTable";
 
-function PostPage() {
+function page() {
   return (
     <div>
-      <PostTable />
+      <PostsTable />
     </div>
   );
 }
 
-export default PostPage;
+export default page;

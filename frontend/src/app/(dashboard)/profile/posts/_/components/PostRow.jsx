@@ -10,10 +10,11 @@ const typeStyle = {
     className: "badge--success",
   },
   premium: {
-    label: "غیر رایگان",
+    label: "پولی",
     className: "badge--secondary",
   },
 };
+
 function PostRow({ post, index }) {
   const { title, category, author, createdAt, type } = post;
   return (
@@ -28,7 +29,7 @@ function PostRow({ post, index }) {
           {typeStyle[type].label}
         </span>
       </td>
-      <td>actions...</td>
+      <td>عملیات</td>
     </Table.Row>
   );
 }

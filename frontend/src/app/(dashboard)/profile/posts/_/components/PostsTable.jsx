@@ -4,10 +4,10 @@ import { getPosts } from "@/services/postServices";
 import React from "react";
 import PostRow from "./PostRow";
 
-async function PostTable() {
+async function PostsTable() {
   const posts = await getPosts();
 
-  if (!posts.length) return <Empty resourceName="پستی" />;
+  if (!posts.length) return <Empty resourceName="هیچ پستی" />;
 
   return (
     <Table>
@@ -21,12 +21,12 @@ async function PostTable() {
         <th>عملیات</th>
       </Table.Header>
       <Table.Body>
-        {posts.map((post, index) => (
-          <PostRow key={post._id} post={post} index={index} />
-        ))}
+        {posts.map((post, index) => {
+          return <PostRow key={post._id} post={post} index={index} />;
+        })}
       </Table.Body>
     </Table>
   );
 }
 
-export default PostTable;
+export default PostsTable;
