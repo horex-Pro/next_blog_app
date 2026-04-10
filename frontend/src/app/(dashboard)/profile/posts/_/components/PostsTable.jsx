@@ -4,8 +4,8 @@ import { getPosts } from "@/services/postServices";
 import React from "react";
 import PostRow from "./PostRow";
 
-async function PostsTable() {
-  const posts = await getPosts();
+async function PostsTable({ queries = "" }) {
+  const posts = await getPosts(queries);
 
   if (!posts.length) return <Empty resourceName="هیچ پستی" />;
 
