@@ -1,10 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 import PostsTable from "./_/components/PostsTable";
+import Fallback from "@/components/ui/Fallback";
 
 function page() {
   return (
     <div>
-      <PostsTable />
+      <Suspense fallback={<Fallback />}>
+        <PostsTable />
+      </Suspense>
     </div>
   );
 }

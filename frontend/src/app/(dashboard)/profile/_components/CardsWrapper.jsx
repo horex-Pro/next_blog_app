@@ -1,6 +1,6 @@
 import { fetchCardData } from "@/services/data";
 import React from "react";
-import { Card } from "./Card";
+import Card from "./Card";
 
 async function CardsWrapper() {
   const { numberOfComments, numberOfUsers, numberOfPosts } =
