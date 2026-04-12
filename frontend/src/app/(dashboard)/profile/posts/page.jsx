@@ -3,8 +3,10 @@ import PostsTable from "./_/components/PostsTable";
 import Fallback from "@/components/ui/Fallback";
 import Search from "@/components/ui/Search";
 import { CreatePost } from "./_/components/Buttons";
+import queryString from "query-string";
 
-function page() {
+function page({ searchParams }) {
+  const query = queryString.stringify(searchParams);
   return (
     <div>
       <div className="grid grid-cols-1 gap-8 text-secondary-700 mb-12 items-center lg:grid-cols-3">
@@ -13,7 +15,7 @@ function page() {
         <CreatePost />
       </div>
       <Suspense fallback={<Fallback />}>
-        <PostsTable queries="" />
+        <PostsTable queries={query} />
       </Suspense>
     </div>
   );
