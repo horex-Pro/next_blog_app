@@ -17,9 +17,9 @@ export async function getPosts(queries, options) {
   );
 
   const { data } = await response.json();
-  const { posts } = data || {};
+  const { posts, totalPages } = data || {};
 
-  return posts;
+  return { posts, totalPages };
 }
 
 export async function likePostApi(postId) {

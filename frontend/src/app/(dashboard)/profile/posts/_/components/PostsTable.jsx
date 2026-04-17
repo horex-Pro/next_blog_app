@@ -5,7 +5,7 @@ import React from "react";
 import PostRow from "./PostRow";
 
 async function PostsTable({ queries = "" }) {
-  const posts = await getPosts(queries);
+  const { posts } = await getPosts(queries);
 
   if (!posts.length) return <Empty resourceName="هیچ پستی" />;
 
