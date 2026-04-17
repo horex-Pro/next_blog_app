@@ -4,6 +4,7 @@ import Fallback from "@/components/ui/Fallback";
 import Search from "@/components/ui/Search";
 import { CreatePost } from "./_/components/Buttons";
 import queryString from "query-string";
+import Spinner from "@/components/ui/Spinner";
 
 function page({ searchParams }) {
   const query = queryString.stringify(searchParams);
@@ -14,7 +15,7 @@ function page({ searchParams }) {
         <Search />
         <CreatePost />
       </div>
-      <Suspense fallback={<Fallback />}>
+      <Suspense fallback={<Spinner />} key={query}>
         <PostsTable queries={query} />
       </Suspense>
     </div>
